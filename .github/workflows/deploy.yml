@@ -1,0 +1,55 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up SSH for Server Access
+      - name: Set up SSH for Server Access
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_ADDRESS }} << 'EOF'
+            # Define the deployment directory
+            REPO_DIR="/home/ubuntu/deployed-docs-server"
+            
+            # Load nvm and ensure the correct Node.js version is used
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 22 || nvm use 18  # Adjust to the desired Node version
+            
+            # Add npm global binaries to PATH
+            export PATH="$HOME/.npm-global/bin:$PATH"
+
+            # Ensure the production directory is clean and ready
+            if [ -d "$REPO_DIR" ]; then
+              echo "Production directory $REPO_DIR already exists. Clearing it for a fresh clone..."
+              rm -rf "$REPO_DIR"  # Remove the existing directory
+            fi
+
+            # Clone the repository directly into the target production directory
+            git clone https://github.com/ykyrnow/ykyr-docs.git "$REPO_DIR"
+
+            # Change to the production directory, install dependencies, and build
+            cd "$REPO_DIR"
+            echo "Currently in directory: $(pwd)"
+            pnpm install
+            pnpm build
+
+
+            # Start the PM2 process in production mode
+            pm2 delete docs-server || true  # Ensure any existing process is removed
+            pm2 start "pnpm start" --name docs-server --cwd "$REPO_DIR" --watch -- --port 3000 --hostname 0.0.0.0
+          EOF
