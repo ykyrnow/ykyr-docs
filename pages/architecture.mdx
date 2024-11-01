@@ -1,0 +1,40 @@
+---
+title: Architecture
+sidebar_position: 3
+---
+
+# Architecture
+
+## Components
+
+The YKYR ecosystem comprises four major components:
+
+### YKYR-extension
+
+A browser extension that enables users to collect their browsing data. It serves as the bridge for users to securely send their encrypted data to the YKYR network.
+
+### YKYR-relayer
+
+An off-chain relayer deployed by YKYR to provide a gasless experience for users. It handles the on-chain submission of gathered data, mitigating the gas fees associated with blockchain transactions and facilitating ease of use for Web2 users transitioning to Web3.
+
+### YKYR-IPFS
+
+An IPFS (InterPlanetary File System) server where all user data is stored. Data is encrypted at the extension level, ensuring that only authorized users can access the content. The IPFS hash of the encrypted data is sent on-chain for reference.
+
+### YKYR-DLP-SC
+
+A collection of smart contracts on the Vana network that registers data contributors, manages user wallets for secure interaction, and will soon enable data exchange in a dedicated marketplace.
+
+## Roles
+
+### DLP
+
+The DLP is the core of the YKYR ecosystem, managing data contributions, rewarding users, and facilitating secure data exchanges. It registers contributors, handles encrypted data submissions, and will soon support a marketplace where users can monetize their data. By securing contributions and ensuring fair rewards, the DLP enables a trusted and private data-sharing environment.
+
+### Data Contributor
+
+A user who actively participates in the YKYR ecosystem by securely sharing anonymized browsing data. Contributors earn rewards based on the data quality and quantity.
+
+### Validator
+
+Agent assessing data contribution for ownership, authenticity etc. Using Vana's TEE-validator network along with a custom Proof of Contribution function, the validator ensures that only genuine, high-quality data submissions are accepted. This validation process upholds trust and integrity within the ecosystem, safeguarding both contributors and data buyers. Please check official documentation for details at [Vana Documentation](https://docs.vana.org/docs/data-attestation).
