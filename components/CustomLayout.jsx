@@ -6,7 +6,6 @@ export default function CustomLayout({ children }) {
     <div className="custom-layout">
       <header>Header Content</header>
       <main>{children}</main>
-      <footer>Footer Content</footer>
     </div>
   );
 }

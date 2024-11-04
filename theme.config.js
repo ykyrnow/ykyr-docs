@@ -1,26 +1,38 @@
 export default {
   logo: 'Documentation',
   project: {
-    link: 'https://github.com/ykyrnow/ykyr-docs',
+    link: 'https://github.com/ykyrnow',
   },
   docsRepositoryBase: 'https://github.com/ykyrnow/ykyr-docs',
+  
+  // Try these breadcrumb settings
+  breadcrumb: false,
+
   footer: {
-    text: 'Test footer value',
+    component: null,
+    text: null
   },
-  // Add these settings to fix sidebar
+  
+  // Also disable in layout
+  layout: {
+    navigation: true,
+    footer: true,
+    sidebar: true,
+    breadcrumb: false
+  },
+  
+  // Add this to disable navigation features
+  navigation: {
+    breadcrumb: false,
+    prevLinks: true,
+    nextLinks: true
+  },
+
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true
   },
-  // Add layout configuration
-  layout: {
-    navigation: true,
-    footer: true,
-    sidebar: true
-  },
-  // Navigation configuration
-  navigation: true,
-  // Optional: Add these for better UI
+  
   darkMode: true,
   search: {
     placeholder: 'Search documentation...'
@@ -34,4 +46,3 @@ export default {
     light: 204
   }
 }
-  

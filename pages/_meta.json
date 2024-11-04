@@ -1,26 +1,66 @@
 {
-    "overview": {
-      "title": "Overview"
+    "index": {
+      "title": "Overview",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "user-guide": {
-      "title": "User Guide"
+      "title": "User Guide",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "architecture": {
-      "title": "Architecture"
+      "title": "Architecture",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "technical-overview": {
-      "title": "Technical Overview"
+      "title": "Technical Overview",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "tokenomics": {
-      "title": "Tokenomics"
+      "title": "Tokenomics",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "governance": {
-      "title": "Governance"
+      "title": "Governance",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "privacy-terms": {
-      "title": "Privacy and Terms"
+      "title": "Privacy and Terms",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     },
     "faq": {
-      "title": "FAQs"
+      "title": "FAQs",
+      "theme": {
+        "breadcrumb": false,
+        "pagination": true,
+        "toc": true
+      }
     }
   }
