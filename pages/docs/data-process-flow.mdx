@@ -1,0 +1,29 @@
+# Detailed Process Flow
+
+![Process Flow Overview](/images/ykyr-flow.png)
+
+## a. Miner Registration: Initialization
+
+- Generate Keys: The user generates cryptographic keys for ECIES (Elliptic Curve Integrated Encryption Scheme) and ECDH (Elliptic Curve Diffie-Hellman) protocols and creates wallets (MinerWallet, ProxyWallet).
+- RegisterMiner: The user sends a registration request through the relayer.
+- Relay Conditions: The relayer validates the request based on predefined conditions (e.g., bot prevention mechanisms).
+- User SCWallet Creation: The user's Smart Contract Wallet (SCWallet) is successfully created.
+- RegisterMiner on YKYR-DLP: Registration information (relayer address, proxy address) is recorded on the YKYR-DLP contract.
+
+## b. Data Submission
+
+- Generate Metrics: The user creates browsing metrics to be submitted.
+- Encrypt Metrics: Data is encrypted using the ECIES public key and a symmetric key for the DataRegistry (DR).
+- Relay Conditions for Data Submission: The relayer validates the submission request based on bot prevention rules.
+- autoSubmitViaRelayer: The relayer submits data to the DataRegistry, requiring the proxy signature.
+- addFileWithPermission: An event FileAdded is triggered on the DataRegistry after successful submission.
+
+## c. Data Verification
+
+- FileAdded Event: The system listens for the FileAdded event and retrieves the fileID.
+- Submit Verification Request: A verification request is sent to the Trusted Execution Environment (TEE) through the relayer.
+- Relay Verification Conditions: The submission is validated based on relayer and proxy requirements.
+- submitJob Event: A JobSubmitted event is triggered upon job submission to the TEE.
+- Retrieve TEE Info: Retrieves teeAddress and relevant information.
+- Run Proof: Initiates a /RunProof request for the TEE to verify the file.
+- Proof Generation: The TEE generates and returns proof of verification.

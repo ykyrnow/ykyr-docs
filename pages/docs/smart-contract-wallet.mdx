@@ -1,0 +1,74 @@
+# Smart Contract Wallet
+
+The YKYR Smart Contract Wallet is a solution designed to bring unparalleled granularity, security, and flexibility to blockchain interactions. Unlike traditional wallets or existing account abstraction solutions, it introduces a highly granular, role-based permission system that allows users to delegate specific functionalities to their task-specific agents without compromising overall wallet security.
+
+## Core Components
+
+### YKYR Wallet Implementation
+- Core functionality for role management, data submission, and reward handling
+- Utilizes upgradable pattern for future adaptability
+- Manages role assignments and transaction handling
+- Enables reward address setting and management
+
+### YKYR Wallet Factory
+Responsible for deploying new wallet instances using clone (minimal proxy) pattern for:
+- Efficient wallet deployment with minimal gas costs
+- Standard and relayer-based initialization options
+
+## Roles and Permissions
+
+### Owner
+- Primary controller with highest level permissions
+- Assigns and revokes proxy and relayer accounts
+- Manages reward addresses and claims
+- Oversees wallet security and functionality
+
+### Proxy Account
+- Authorized by owner for specific actions
+- Submits data directly to data registries
+- Facilitates delegated operations
+
+### Relayer Account
+- Enables off-chain computations and interactions
+- Acts as intermediary between owner and blockchain
+- Executes transactions and handles data submissions
+- Manages TEE pool interactions
+
+## Key Features
+
+### Role Management
+- Dynamic role assignment and revocation
+- Specific permission granting for different accounts
+- Combined role assignment through owner-signed messages
+
+### Data Submission Mechanisms
+- **Auto Submission**: Direct data submission by proxy account
+- **Relayer Auto Submission**: Off-chain computation and job execution
+- Efficient data registry interaction with reduced costs
+
+### Reward Management
+- Configurable reward address
+- Owner-controlled reward claims
+- Transparent operation tracking through events
+
+## Security Features
+
+### Protection Mechanisms
+- Signature verification for authorized actions
+- Nonce management for replay attack prevention
+- Role-based access control
+- Strict permission enforcement
+
+### Upgradability
+- Upgradeable contract patterns
+- Immutable critical addresses
+- Protected governance mechanisms
+
+## Use Cases
+- DApps: Secure data management and role delegation
+- DeFi: Automated transactions and asset protection
+- Data Registry: Efficient submission and TEE pool integration
+
+## Documentation and Resources
+
+For more detailed information about the YKYR Smart Contract Wallet, including technical specifications and implementation guides, please refer to [YKYR Smart Contract Wallet:  Granular, role-based permission wallet structure](https://www.ykyr.org/pdfs/20241112.pdf).

@@ -1,0 +1,57 @@
+{
+  "introduction": {
+    "title": "INTRODUCTION",
+    "type": "separator"
+  },
+  "index": {
+    "title": "What is YKYR"
+  },
+  "faq": {
+    "title": "FAQ"
+  },
+  "how-to-guide": {
+    "title": "USER-GUIDE",
+    "type": "separator"
+  },
+  "get-started": {
+    "title": "Get Started"
+  },
+  "reward-system": {
+    "title": "Reward System"
+  },
+  "architecture": {
+    "title": "ARCHITECTURE",
+    "type": "separator"
+  },
+  "architecture-overview": {
+    "title": "Overview"
+  },
+  "data-contributor": {
+    "title": "Data Contributor"
+  },
+  "validator": {
+    "title": "Validator"
+  },
+  "smart-contract-wallet": {
+    "title": "Smart Contract Wallet"
+  },
+  "data-marketplace": {
+    "title": "Data Marketplace"
+  },
+  "developer": {
+    "title": "DEVELOPER HUB",
+    "type": "separator"
+  },
+  "technical-overview": {
+    "title": "Technical Overview"
+  },
+  "extension": {
+    "title": "Extension"
+  },
+  "smart-contract": {
+    "title": "Smart Contract"
+  },
+  "data-process-flow": {
+    "title": "Data Process Flow"
+  }
+}

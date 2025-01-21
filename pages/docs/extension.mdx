@@ -1,0 +1,19 @@
+# Extension side
+
+## Contributor
+A user who actively participates in the YKYR ecosystem by securely sharing anonymized browsing data. Contributors earn rewards based on the data quality and quantity.
+
+## Validator
+Trusted Execution Environment (TEE) validator provided by the Vana network, responsible for verifying the integrity and authenticity of data contributions.
+
+## Contributor Wallet
+A secure, cold-storage wallet designated for receiving rewards. During setup, users set a password to encrypt this wallet, ensuring that their rewards are protected.
+
+## Proxy Wallet
+A hot wallet used to automate the signing process for data submissions. This wallet generates an encryption key, enhancing ease of use by minimizing the need for manual signatures.
+
+## Smart Contract Wallet (SCW)
+A wallet enabled with account abstraction, allowing seamless interactions with the YKYR on-chain stack, making the blockchain process accessible and user-friendly.
+
+## Encryption
+The method used to protect user data, employing symmetric encryption via OpenPGP. The encryption key is derived from the Proxy Wallet's signature of a randomly generated string within the extension. This process ensures that only the contributor can decrypt and access their data, keeping it private.

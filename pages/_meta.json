@@ -1,66 +1,6 @@
 {
-    "index": {
-      "title": "Overview",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "user-guide": {
-      "title": "User Guide",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "architecture": {
-      "title": "Architecture",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "technical-overview": {
-      "title": "Technical Overview",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "tokenomics": {
-      "title": "Tokenomics",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "governance": {
-      "title": "Governance",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "privacy-terms": {
-      "title": "Privacy and Terms",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
-    },
-    "faq": {
-      "title": "FAQs",
-      "theme": {
-        "breadcrumb": false,
-        "pagination": true,
-        "toc": true
-      }
+    "docs": {
+      "title": "Documentation",
+      "type": "page"
     }
   }
