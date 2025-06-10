@@ -1,0 +1,55 @@
+# YKYR Documentation
+
+> YKYR is a platform that empowers users to collect, own, and monetize their personal browsing data and behavioral traits through a decentralized marketplace.
+
+This documentation covers everything from an introduction and user guides to architecture and developer topics.
+
+---
+
+## Introduction
+
+- [What is YKYR?](https://docs.ykyr.org/docs/what-is-ykyr)  
+  Explains the purpose of YKYR, how users can collect their data, and how they can benefit from monetizing it.  
+- [FAQ](https://docs.ykyr.org/docs/faq)  
+  Frequently asked questions about YKYR’s privacy features, data ownership, and overall platform functionality.
+
+---
+
+## User Guide
+
+- [Get Started](https://docs.ykyr.org/docs/get-started)  
+  A guide to getting started with YKYR, including account creation and initial setup.  
+- [Reward System](https://docs.ykyr.org/docs/reward-system)  
+  Information on how users earn rewards through Proof of Contribution (PoC) for data contributions and platform participation.
+
+---
+
+## Architecture
+
+- [Overview](https://docs.ykyr.org/docs/overview)  
+  A high-level explanation of the YKYR ecosystem, its roles, and core components.  
+- [Data Contributor](https://docs.ykyr.org/docs/data-contributor)  
+  Details on how users securely share anonymized browsing data in the YKYR ecosystem.  
+- [Validator](https://docs.ykyr.org/docs/validator)  
+  Describes the validator network, consensus mechanisms, and validation processes in YKYR.  
+- [Smart Contract Wallet](https://docs.ykyr.org/docs/smart-contract-wallet)  
+  Overview of YKYR’s smart contract wallet solution for secure blockchain interactions.  
+- [Data Marketplace](https://docs.ykyr.org/docs/data-marketplace)  
+  (Coming soon) A decentralized marketplace for buying and selling user-contributed data.
+
+---
+
+## Developer Hub
+
+- [Technical Overview](https://docs.ykyr.org/docs/technical-overview)  
+  Technical details on YKYR’s architecture, security, and encryption.  
+- [Extension](https://docs.ykyr.org/docs/extension)  
+  Explains the YKYR browser extension, including how it collects and encrypts data.  
+- [Smart Contract](https://docs.ykyr.org/docs/smart-contract)  
+  Information on the blockchain smart contracts that power YKYR’s data and reward systems.  
+- [Data Process Flow](https://docs.ykyr.org/docs/data-process-flow)  
+  A step-by-step outline of how data moves through the YKYR ecosystem, from collection to monetization.
+
+---
+
+# End of YKYR Documentation Index

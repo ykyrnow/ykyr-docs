@@ -1,0 +1,189 @@
+# Proof of Contribution (PoC)
+
+*This page documents exactly how YKYR validates every browsing-data upload, assigns a trust score, and commits a tamper-proof proof on-chain. It satisfies **VRC-5** (PoC transparency) and **VRC-14** (metric-based rewards).*
+
+> **At a glance**: an encrypted ZIP → decrypt & hash-check → multi-stage evaluation → score normalisation → on-chain `ProofResponse`.
+
+---
+
+## 1 · End-to-End Flow
+
+| # | Phase | Code entry-point | What we check | Output field |
+|---|-------|-----------------|---------------|--------------|
+|1 | **Upload** | — | User drops encrypted ZIP (`browsingDataArray` + `evaluationMetrics`) | — |
+|2 | **Decrypt + Hash** | `decryptData()` & `verifyDataHash()` | File integrity (SHA-256) | `integrity` (bool) |
+|3 | **Ownership** | `verify_ownership()` | Wallet recovered from `signature` = `author` | `ownership` (0.0 / 1.0) |
+|4 | **Authenticity** | `recalculate_evaluation_metrics()` → `verify_evaluation_metrics()` | Recompute `url_count`, `timeSpent`, `points` and compare | `authenticity` (0.0 / 1.0) |
+|5 | **Correctness** | `evaluate_correctness()` | Schema complete? URLs valid? At least 50% valid entries | `correctness` (bool) |
+|6 | **Quality** | `evaluate_quality()` | Time-duration & bot-like quotas → 0-1 score | `quality` (0.0-1.0) |
+|7 | **Sigmoid & Label** | `sigmoid()` + `label_browsing_behavior()` | Compress score; tag *low / moderate / high* trust | `score` & `attributes.label` |
+|8 | **Final decision** | `create_proof_response()` | Must satisfy:<br/>ownership ∧ authenticity ∧ integrity ∧ correctness ∧ score ≥ VALIDITY_THRESHOLD | `valid` (bool) |
+|9 | **On-chain commit** | Satya TEE → `DataRegistry.addRefinement` | Emits `RefinementAdded` event | Tx hash |
+
+---
+
+## 2 · Key Algorithms
+
+### 2.1 Authenticity Check (Honesty Verification)
+
+Purpose – Verify that the client’s self-reported summary matches what the raw data really shows.  
+Concept – Re-derive three simple ground-truth metrics from the decrypted browsing entries:  
+
+Count of URLs visited  
+Exact list of per-page seconds spent  
+Points total based on a public formula (URLs + minutes) × bonus  
+
+The server then compares these freshly calculated numbers to the ones the client claimed. If every single value lines up, authenticity is perfect (1.0). Any mismatch—no matter how small—drops authenticity below perfect, signalling possible tampering or error.  
+
+### 2.2 Correctness Evaluation
+
+Purpose – Decide whether a batch of raw browsing records is usable at all.  
+Concept – Treat each record like a quick inspection at the factory gate:  
+
+Does it have the essential labels? (a URL and a time-spent value)  
+Is the URL even a real URL?  
+
+If at least half of the incoming boxes pass those two checks, the whole shipment is declared “correct”; otherwise it’s rejected. Empty shipments are automatically rejected.  
+
+
+
+### 2.3 Quality Evaluation
+
+Purpose – Put a 0-to-1 quality grade on a browsing session that already passed the basic correctness test.  
+Concept – Think of two lenses, each looking for signs of genuine, attentive browsing:  
+
+Time behaviour (60 % weight).  
+Rewards a mix of reasonable visit lengths, penalises a flood of ultra-short clicks, suspiciously identical visit times, or one-page marathons.  
+Bot detection (40 % weight).  
+Flags mechanical patterns—e.g., three quick, tiny visits in a row or nearly identical time-spent values—that humans rarely produce.  
+
+Each lens produces a partial score. Weighted, summed, clamped to 0-100, then normalised to 0-1, the result expresses “How human-like and meaningful was this set of visits?”  
+
+
+### 2.4 Sigmoid Normalisation
+
+```python
+def sigmoid(x, k=constants.K, x0=constants.X0):
+    """
+    Maps raw 0-1 quality into a curve that emphasises mid-range differences.
+    Default: k=6, x0=0.5 (check constants.py for actual values)
+    """
+    z = k * (x - x0)
+    return 1 / (1 + math.exp(-z))
+```
+
+Threshold **VALIDITY_THRESHOLD** marks *moderate authenticity* (MODERATE_AUTHENTICITY_THRESHOLD).
+
+---
+
+## 3 · `ProofResponse` Structure
+
+```json
+{
+  "dlp_id": 10,
+  "ownership": 1.0,
+  "authenticity": 1.0,
+  "integrity": true,
+  "correctness": true,
+  "quality": 0.82,
+  "attributes": {
+    "label": "high"
+  },
+  "score": 0.91,
+  "valid": true,
+  "metadata": {
+    "dlp_id": 10,
+    "valid": true
+  }
+}
+```
+
+*Only `valid==true` files accrue rewards; otherwise contributors can resubmit.*
+
+---
+
+## 4 · Valid-Data Thresholds
+
+| Check | Threshold | Implementation |
+|-------|-----------|----------------|
+| Ownership | Signature matches address | `recovered_address.lower() == author.lower()` |
+| Authenticity | Points & metrics match recalculation | All metrics must match exactly |
+| Integrity | SHA-256 hash OK | `verifyDataHash()` returns true |
+| Correctness | ≥50% entries follow schema | At least half entries have valid URL + timeSpent |
+| Final score | ≥ **VALIDITY_THRESHOLD** | `sigmoid(quality) >= MODERATE_AUTHENTICITY_THRESHOLD` |
+
+**Valid Calculation:**
+```python
+# From proof.py line 60-61
+valid = ownership and authenticity and integrity and correctness and (final_score >= constants.MODERATE_AUTHENTICITY_THRESHOLD)
+# where MODERATE_AUTHENTICITY_THRESHOLD should be VALIDITY_THRESHOLD
+```
+
+---
+
+## 5 · Schema Requirements
+
+### Input Data Structure
+```json
+{
+  "author": "0x...",
+  "signature": "0x...",
+  "random_string": "0x...",
+  "data_hash": "0x...",
+  "data": {
+    "browsingDataArray": [
+      {
+        "url": "https://example.com",
+        "timeSpent": 5000  // milliseconds
+      }
+    ],
+    "evaluationMetrics": {
+      "url_count": 10,
+      "timeSpent": [5, 3, 7, ...],  // seconds
+      "points": 123
+    }
+  }
+}
+```
+
+### Required Fields (from constants.py)
+- Each browsing entry must have: `url` and `timeSpent`
+- URLs must be valid (checked by `is_valid_url()`)
+- Time values in milliseconds, converted to seconds for metrics
+
+---
+
+## 6 · How to Reproduce Locally
+
+```bash
+# Prepare input data
+# Place your encrypted ZIP file in the input directory
+# The ZIP should contain the JSON structure shown in section 5
+
+# Build & run proof container
+$ docker build -t ykyr-proof .
+$ docker run -v $PWD/input:/input -v $PWD/output:/output \
+           -e DLP_ID=51 \
+           -e SIGNED_MESSAGE=0x... \
+           ykyr-proof
+
+# Inspect proof
+$ jq . output/proof_response.json
+```
+
+> Note: The input directory should contain a `.zip` file with the encrypted data structure. The proof system will automatically find and process the first ZIP file in the directory.
+
+> The JSON can then be submitted with `addRefinementWithPermission()` to testnet (Moksha) or mainnet.
+
+---
+
+## 7 · Label Classification
+
+Based on the sigmoid score (from `label_browsing_behavior()` function):
+- **Low trust**: score < 0.4
+- **Moderate trust**: 0.4 ≤ score < 0.8  
+- **High trust**: score ≥ 0.8
+
+These labels are stored in `attributes.label` and can be used for filtering or reputation systems.
+
+---

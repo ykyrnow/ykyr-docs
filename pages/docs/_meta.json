@@ -9,6 +9,9 @@
   "faq": {
     "title": "FAQ"
   },
+  "tokenomics": {
+    "title": "Tokenomics"
+  },
   "how-to-guide": {
     "title": "USER-GUIDE",
     "type": "separator"
@@ -26,17 +29,17 @@
   "architecture-overview": {
     "title": "Overview"
   },
-  "data-contributor": {
-    "title": "Data Contributor"
+  "proof-of-contribution": {
+    "title": "Proof of Contribution"
   },
   "validator": {
     "title": "Validator"
   },
-  "smart-contract-wallet": {
-    "title": "Smart Contract Wallet"
+  "data-schema": {
+    "title": "Data Schema"
   },
-  "data-marketplace": {
-    "title": "Data Marketplace"
+  "smart-contract": {
+    "title": "Smart Contract"
   },
   "developer": {
     "title": "DEVELOPER HUB",
@@ -47,9 +50,6 @@
   },
   "extension": {
     "title": "Extension"
-  },
-  "smart-contract": {
-    "title": "Smart Contract"
   },
   "data-process-flow": {
     "title": "Data Process Flow"

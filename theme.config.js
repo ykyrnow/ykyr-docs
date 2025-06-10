@@ -24,51 +24,11 @@ export default {
   },
   docsRepositoryBase: 'https://github.com/ykyrnow/ykyr-docs',
 
-  breadcrumb: false,
-
-  footer: {
-    component: null,
-    text: null,
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – YKYR'
+    }
   },
-
-  layout: {
-    navigation: true,
-    footer: false,
-    sidebar: true,  // Restored to true
-    breadcrumb: false,
-  },
-
-  navigation: {
-    prev: true,
-    next: true,
-  },
-
-  navigationText: {
-    prevPage: 'Previous',
-    nextPage: 'Next',
-  },
-
-  sidebar: {
-    defaultMenuCollapseLevel: 1,
-    toggleButton: true,
-  },
-
-  darkMode: true,
-  search: {
-    placeholder: 'Search documentation...',
-  },
-  toc: {
-    float: true,
-    title: 'On This Page',
-  },
-  primaryHue: {
-    dark: 204,
-    light: 204,
-  },
-  feedback: false,    
-  editLink: false,    
-  
-
 
   head: ({ title }) => (
     <>
@@ -142,4 +102,51 @@ export default {
       `}</style>
     </>
   ),
+
+  // Add components configuration
+  components: {
+    Tabs: {
+      defaultProps: {
+        items: []
+      }
+    }
+  },
+
+  // Other configurations
+  darkMode: true,
+  search: {
+    placeholder: 'Search documentation...',
+  },
+  toc: {
+    float: true,
+    title: 'On This Page',
+  },
+  primaryHue: {
+    dark: 204,
+    light: 204,
+  },
+  feedback: {
+    content: null
+  },
+  editLink: {
+    component: null
+  },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true,
+  },
+  navigation: {
+    prev: true,
+    next: true,
+  },
+  navigationText: {
+    prevPage: 'Previous',
+    nextPage: 'Next',
+  },
+  layout: {
+    navigation: true,
+    footer: false,
+    sidebar: true,
+    breadcrumb: false,
+  }
 };
