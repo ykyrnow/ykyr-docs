@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 800 800" overflow="visible" xml:space="preserve">
+<rect fill="#F8EBD5" width="800" height="800"/>
+<g>
+	<path d="M248.1,317.3l16.9,72.9l17.1-72.9h40.5l-38.9,167.4h-37.1l-4.7-20.5l-4.7,20.5H200l-39.2-167.4h40.5l17.1,72.9l2.9-12.8
+		l-14-60.1H248.1z"/>
+	<path d="M407.2,317.3l16.9,72.9l17.1-72.9h40.5l-38.9,167.4h-37.1l-4.7-20.5l-4.7,20.5h-37.1l-39.2-167.4h40.5l17.1,72.9l2.9-12.8
+		l-14-60.1H407.2z"/>
+	<path d="M566.3,317.3l16.9,72.9l17.1-72.9h40.5l-38.9,167.4h-37.1l-4.7-20.5l-4.7,20.5h-37.1L479,317.3h40.5l17.1,72.9l2.9-12.8
+		l-14-60.1H566.3z"/>
+</g>
+</svg>
